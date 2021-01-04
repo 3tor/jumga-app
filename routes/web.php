@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('layouts.landing');
+// });
+Route::get('/', 'LandingController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/merchant/register', 'MerchantController@register')->name('merchant.register');
