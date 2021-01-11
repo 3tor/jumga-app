@@ -19,4 +19,6 @@ Route::get('/', 'LandingController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/merchant/register', 'MerchantController@register')->name('merchant.register');
+Route::get('/merchant/register', 'MerchantController@getRegisterForm')->name('merchant.register.form');
+Route::post('/merchant/register', 'MerchantController@register')->name('merchant.register');
+Route::get('/merchant/setup/payment', 'MerchantController@getSetupPayment')->name('merchant.setup.payment');

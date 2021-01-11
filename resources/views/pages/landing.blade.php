@@ -123,7 +123,7 @@
                             <figcaption class="pt-4">
                             <h5 class="title">Creative Strategy &amp; solution</h5>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod </p>
-                            <a href="{{route('merchant.register')}}" class="btn btn-md btn-primary">Learn more</a>
+                            <a href="{{route('merchant.register.form')}}" class="btn btn-md btn-primary">Learn more</a>
                             </figcaption>
                         </figure> <!-- iconbox // -->
                     </article> <!-- panel-lg.// -->
