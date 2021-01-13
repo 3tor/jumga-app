@@ -26,4 +26,9 @@ class MerchantController extends Controller
     {
         return view('pages.setup-payment');
     }
+
+    public function setupPayment(Request $request)
+    {
+        dd($request->all());
+    }
 }

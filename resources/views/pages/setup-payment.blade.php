@@ -1,4 +1,11 @@
 @extends('layouts.general')
+@section('css')
+<style>
+	.credit-card-form, .bank-form, .mobile-money-form{
+		display: none;
+	}
+</style>
+@endsection
 @section('content')
 <section class="section-pagetop bg-dark">
     <div class="container clearfix">
@@ -38,16 +45,16 @@
                                 Mobile Money
                                 </span>
                             </label>
-                        <form>
+                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'credit-card-form']) }}
                             <div class="form-group mt-5">
                                 <label>Name on card</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name="name_of_card" placeholder="">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="cardNumber">Card number</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="cardNumber" placeholder="">
+                                        <input type="number" class="form-control" name="cardNumber" placeholder="">
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fab fa-cc-visa"></i> &nbsp; <i class="fab fa-cc-amex"></i> &nbsp; 
@@ -58,18 +65,56 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Expiration(Month)</label>
-                                    <input type="text" class="form-control" placeholder="MM">
+                                    <input type="number" class="form-control" name="expiry_month" placeholder="MM">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Year</label>
-                                    <input type="text" class="form-control" placeholder="YY">
+                                    <input type="number" class="form-control" name="expiry_year" placeholder="YY">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card" aria-describedby="tooltip873823">CVV <i class="fa fa-question-circle"></i></label>
-                                    <input type="text" class="form-control">
+                                    <input type="number" class="form-control" name="cvv">
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-md-12 mt-4">
+                                <button class="subscribe btn btn-success btn-lg btn-block" type="submit">Make Payment</button>
+                            </div>
+                        {{ Form::close() }}
+                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'bank-form mt-5']) }}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Account Bank</label>
+                                    <input type="text" class="form-control" placeholder="Account Bank">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Account Number</label>
+                                    <input type="text" class="form-control" placeholder="Account Number">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <button class="subscribe btn btn-success btn-lg btn-block" type="submit">Make Payment</button>
+                            </div>
+                        {{ Form::close() }}
+                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'mobile-money-form mt-5']) }}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="Phone Number">
+                                </div>
+                                <div class="form-group col-md-6">
+                                   <label>Phone Number</label>
+                                   <select id="inputState" name="network" class="form-control" required>
+                                    <option value="" selected="">Choose...</option>
+                                    <option value='MTN'>MTN</option>
+                                    <option value='VODAFONE'>VODAFONE</option>
+                                    <option value='TIGO'>TIGO</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <button class="subscribe btn btn-success btn-lg btn-block" type="submit">Make Payment</button>
+                            </div>
+                        {{ Form::close() }}
                     </article>
                 </div>
                 <!-- card.// -->
@@ -101,12 +146,34 @@
                             </article>
                         </div>
                     </div>
-                    <div class="col-md-12 mt-4">
-                        <button class="subscribe btn btn-success btn-lg btn-block" type="button">Place Order</button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.form-check-input').click(function(){
+            var payment_options = $('input[name="exampleRadio"]:checked').val();
+            if(payment_options === 'card_payment'){
+                $(".credit-card-form").show();
+                $(".bank-form").hide();
+                $(".mobile-money-form").hide();
+            }
+            else if(payment_options === 'bank_direct' || payment_options === 'bank_account'){
+                $(".bank-form").show();
+                $(".credit-card-form").hide();
+                $(".mobile-money-form").hide();
+            }
+            else if(payment_options === 'mobile_money'){
+                $(".mobile-money-form").show();
+                $(".credit-card-form").hide();
+                $(".bank-form").hide();
+            }
+        });
+    });
+</script>
 @endsection

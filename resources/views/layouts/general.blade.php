@@ -46,7 +46,7 @@
     <!-- custom style -->
     <link href="{{ asset('frontend/css/ui.css?v=1.0') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
-
+    @yield('css')
 </head>
 <body>
     @include('layouts.frontend.header')
@@ -54,5 +54,6 @@
     @yield('content')
 
     @include('layouts.frontend.footer')
+    @yield('scripts')
 </body>
 </html>

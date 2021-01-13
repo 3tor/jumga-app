@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/merchant/register', 'MerchantController@getRegisterForm')->name('merchant.register.form');
 Route::post('/merchant/register', 'MerchantController@register')->name('merchant.register');
 Route::get('/merchant/setup/payment', 'MerchantController@getSetupPayment')->name('merchant.setup.payment');
+Route::post('/merchant/setup/payment', 'MerchantController@setupPayment')->name('setup.payment');
