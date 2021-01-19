@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\MerchantRequest;
 use App\Services\MerchantService;
+use App\Models\Merchant;
 
 class MerchantController extends Controller
 {
@@ -22,13 +23,9 @@ class MerchantController extends Controller
         }
     }
 
-    public function getSetupPayment()
+    public function getSetupPayment($id)
     {
-        return view('pages.setup-payment');
-    }
-
-    public function setupPayment(Request $request)
-    {
-        dd($request->all());
+        $merchant = Merchant::where('external_merchant_id',$id)->first();
+        return view('pages.setup-payment',compact('merchant'));
     }
 }

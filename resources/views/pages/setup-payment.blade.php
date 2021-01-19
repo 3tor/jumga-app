@@ -45,42 +45,67 @@
                                 Mobile Money
                                 </span>
                             </label>
-                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'credit-card-form']) }}
+                        {{ Form::open(['route' => ['setup.card-payment'], 'class' => 'credit-card-form']) }}
                             <div class="form-group mt-5">
                                 <label>Name on card</label>
-                                <input type="text" class="form-control" name="name_of_card" placeholder="">
+                                <input type="text" class="form-control" name="name_of_card" value="{{ old('name_of_card') }}" placeholder="Please enter the name of card holder" required>
+                                @error('name_of_card')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="cardNumber">Card number</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="cardNumber" placeholder="">
+                                        <input type="number" class="form-control" name="card_number" value="{{ old('card_number') }}" placeholder="Please enter 16 digit number on card" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fab fa-cc-visa"></i> &nbsp; <i class="fab fa-cc-amex"></i> &nbsp; 
                                                 <i class="fab fa-cc-mastercard"></i> 
                                             </span>
                                         </div>
+                                        @error('card_number')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Expiration(Month)</label>
-                                    <input type="number" class="form-control" name="expiry_month" placeholder="MM">
+                                    <input type="number" class="form-control" name="expiry_month" value="{{ old('expiry_month') }}" placeholder="MM" required>
+                                    @error('expiry_month')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>Year</label>
-                                    <input type="number" class="form-control" name="expiry_year" placeholder="YY">
+                                    <input type="number" class="form-control" name="expiry_year" value="{{ old('expiry_year') }}" placeholder="YY" required>
+                                    @error('expiry_year')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card" aria-describedby="tooltip873823">CVV <i class="fa fa-question-circle"></i></label>
-                                    <input type="number" class="form-control" name="cvv">
+                                    <input type="number" class="form-control" value="{{ old('cvv') }}" name="cvv" required>
+                                    @error('cvv')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4">
                                 <button class="subscribe btn btn-success btn-lg btn-block" type="submit">Make Payment</button>
                             </div>
                         {{ Form::close() }}
-                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'bank-form mt-5']) }}
+                        {{ Form::open(['route' => ['setup.bank-payment'], 'class' => 'bank-form mt-5']) }}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Account Bank</label>
@@ -95,7 +120,7 @@
                                 <button class="subscribe btn btn-success btn-lg btn-block" type="submit">Make Payment</button>
                             </div>
                         {{ Form::close() }}
-                        {{ Form::open(['route' => ['setup.payment'], 'class' => 'mobile-money-form mt-5']) }}
+                        {{ Form::open(['route' => ['setup.momo-payment'], 'class' => 'mobile-money-form mt-5']) }}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Phone Number</label>
@@ -124,20 +149,20 @@
                     <div class="col-md-12">
                         <div class="card">
                             <header class="card-header">
-                                <h4 class="card-title mt-2">Your Order</h4>
+                                <h4 class="card-title mt-2">Merchant Details</h4>
                             </header>
                             <article class="card-body">
                                 <dl class="dlist-align">
                                     <dt>Name: </dt>
-                                    <dd class="text-right">Value name</dd>
+                                    <dd class="text-right">{{$merchant->business_name}}</dd>
                                 </dl>
                                 <dl class="dlist-align">
                                     <dt>Contact:</dt>
-                                    <dd class="text-right">Contact value</dd>
+                                    <dd class="text-right">{{$merchant->business_phone}}</dd>
                                 </dl>
                                 <dl class="dlist-align">
                                     <dt>Country:</dt>
-                                    <dd class="text-right">Country value</dd>
+                                    <dd class="text-right">{{$merchant->country}}</dd>
                                 </dl>
                                 <dl class="dlist-align">
                                     <dt>Total cost: </dt>

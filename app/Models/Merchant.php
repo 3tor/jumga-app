@@ -7,7 +7,7 @@ use App\Models\User;
 
 class Merchant extends Model
 {
-    protected $fillable = ['business_name','business_phone','business_email','country'];
+    protected $fillable = ['business_name','business_phone','business_email','country','external_merchant_id'];
 
     public function users()
     {
